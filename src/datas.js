@@ -74,6 +74,7 @@ const newMembers = [
         title: 'Hacker',
         img: 'images/qadir.jpg'
     },
+     
 ]
 
 const transactions = [
@@ -151,7 +152,8 @@ let userRows = [
         status: 'active',
         transaction: '$55.98',
         email: 'Hamze@gmail.com'
-    }
+    },
+    
 ]
 
 let products = [

@@ -14,8 +14,6 @@ export default function User() {
 
         <>
 
-            <button className='userButton'>+ New User</button>
-
         <img src={users.find (user => user.id == params.userID ).avatar} alt="Avatar" className='userPhoto'/>
             <Table striped bordered hover className='userTabel'>
                 <thead>
@@ -29,10 +27,10 @@ export default function User() {
                 
                 <tbody>
                            <tr>
-                                <td>{users.find (user => user.id == params.userID ).username}</td>
-                                <td>{users.find (user => user.id == params.userID ).email}</td>
-                                <td>{users.find (user => user.id == params.userID ).status}</td>
-                                <td>{users.find (user => user.id == params.userID ).transaction}</td>
+                                <td className='userData'>{users.find (user => user.id == params.userID ).username}</td>
+                                <td className='userData'>{users.find (user => user.id == params.userID ).email}</td>
+                                <td className='userData'>{users.find (user => user.id == params.userID ).status}</td>
+                                <td className='userData'>{users.find (user => user.id == params.userID ).transaction}</td>
                     
                             </tr>
 

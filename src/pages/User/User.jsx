@@ -1,20 +1,27 @@
 import { useParams} from 'react-router-dom'
 import { useState } from 'react';
 import Table from 'react-bootstrap/Table';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import EditIcon from '@mui/icons-material/Edit';
 
 import { userRows } from '../../datas';
 import './User.css'
 
 export default function User() {
 
-    let params = useParams()
-    const [users] = useState(userRows)
+    let { userID } = useParams();
+    const [users] = useState(userRows);
+    const user = users.find(user => user.id == Number(userID));
+
+    if (!user) {
+        return <p>{userID} dont find</p>;
+    }
   
   return (
 
         <>
-
-        <img src={users.find (user => user.id == params.userID ).avatar} alt="Avatar" className='userPhoto'/>
+        <div className="userWraper">
+               <img src={user.avatar} alt="Avatar" className='userPhoto'/>
             <Table striped bordered hover className='userTabel'>
                 <thead>
                     <tr>
@@ -27,17 +34,26 @@ export default function User() {
                 
                 <tbody>
                            <tr>
-                                <td className='userData'>{users.find (user => user.id == params.userID ).username}</td>
-                                <td className='userData'>{users.find (user => user.id == params.userID ).email}</td>
-                                <td className='userData'>{users.find (user => user.id == params.userID ).status}</td>
-                                <td className='userData'>{users.find (user => user.id == params.userID ).transaction}</td>
+                                <td className='userData'>{user.username}</td>
+                                <td className='userData'>{user.email}</td>
+                                <td className='userData'>{user.status}</td>
+                                <td className='userData'>{user.transaction}</td>
                     
                             </tr>
 
                     </tbody>
             </Table>
-        <br></br>
-            <button className='userButton'>Edit</button>
+            <div className="btns">
+                {/* <button className='userButton'>Edit</button> */}
+                <EditIcon style={{color: "green"}} />
+                <DeleteOutlineIcon style={{color: "red"}}/>
+
+            </div>
+            
+
+        </div>
+         
+            
             </>
         
 )}

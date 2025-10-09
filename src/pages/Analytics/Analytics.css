@@ -1,0 +1,78 @@
+.analytics {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  /* max-width: 900px; */
+  flex: 4;
+  margin: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.analytics h2 {
+  font-size: 24px;
+  color: darkblue;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.chartWrapper {
+  width: 100%;
+  min-width: 280px;
+  height: 300px;
+  margin-bottom: 30px;
+}
+
+.monthFilter {
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+.mounthSelect {
+  width: 150px;
+  height: 30px;
+  margin-left: 10px;
+}
+.analyticsTable {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fafafa;
+}
+
+.analyticsTable th,
+.analyticsTable td {
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-size: 15px;
+}
+
+.analyticsTable th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 📱 Responsive */
+@media (max-width: 700px) {
+  .analytics {
+    padding: 15px;
+  }
+
+  .analytics h2 {
+    font-size: 20px;
+  }
+
+  .chartWrapper {
+    height: 250px;
+  }
+
+  .analyticsTable th,
+  .analyticsTable td {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .analyticsTable {
+    display: block;
+    overflow-x: auto;
+  }
+}

@@ -1,0 +1,71 @@
+.sales {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  /* max-width: 950px; */
+  flex: 4;
+  margin: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.sales h2 {
+  font-size: 24px;
+  color: darkblue;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+/*  Table */
+.salesTable {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fafafa;
+  margin-bottom: 30px;
+}
+
+.salesTable th,
+.salesTable td {
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  text-align: left;
+  font-size: 15px;
+}
+
+.salesTable th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+  color: #333;
+}
+
+/*  Chart */
+.chartWrapper {
+  width: 100%;
+  min-width: 280px;
+  height: 300px;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .sales {
+    padding: 15px;
+  }
+
+  .sales h2 {
+    font-size: 20px;
+  }
+
+  .salesTable th,
+  .salesTable td {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .salesTable {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .chartWrapper {
+    height: 250px;
+  }
+}

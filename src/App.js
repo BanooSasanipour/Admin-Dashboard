@@ -5,7 +5,10 @@ import Topbar from './components/topbar/Topbar'
 import Sidebar from './components/sidebar/Sidebar'
 import Footer from './components/Footer/Footer'
 
-import './App.css'
+import './App.css';
+// import "./seedAll";
+
+
 
 
 export default function App() {

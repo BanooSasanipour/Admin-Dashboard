@@ -30,14 +30,19 @@ export default function Sidebar() {
                 Home
               </li>
             </Link>
+            <Link to="/analytics" className="link">
             <li className="sidebarListItem">
               <TimelineIcon className="sidebarIcon" />
               Analytics
             </li>
-            <li className="sidebarListItem">
+            </Link>
+            <Link to="/sales" className="link">
+             <li className="sidebarListItem">
               <TrendingUpIcon className="sidebarIcon" />
               Sales
             </li>
+            </Link>
+           
           </ul>
         </div>
         <div className="sidebarMenu">
@@ -61,51 +66,77 @@ export default function Sidebar() {
                 Products
               </li>
             </Link>
+            <Link to="/transactions" className="link">
             <li className="sidebarListItem">
               <AttachMoneyIcon className="sidebarIcon" />
               Transactions
             </li>
+            </Link>
+            <Link to={"/reports"} className="link">
             <li className="sidebarListItem">
               <BarChartIcon className="sidebarIcon" />
               Reports
             </li>
+            </Link>
+            
+            
           </ul>
         </div>
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Notifications</h3>
           <ul className="sidebarList">
+            <Link to={"/mail"} className="link">
             <li className="sidebarListItem">
               <MailOutlineIcon className="sidebarIcon" />
               Mail
             </li>
+            </Link>
+            
+            <Link to={"/feedback"} className="link">
             <li className="sidebarListItem">
               <DynamicFeedIcon className="sidebarIcon" />
               Feedback
             </li>
+            </Link>
+            
+            <Link to={"/messages"} className="link">
             <li className="sidebarListItem">
               <ChatBubbleOutlineIcon className="sidebarIcon" />
               Messages
             </li>
+            </Link>
+            
           </ul>
         </div>
         <div className="sidebarMenu">
           <h3 className="sidebarTitle">Staff</h3>
           <ul className="sidebarList">
+            <Link to={"/manage"} className="link">
             <li className="sidebarListItem">
               <WorkOutlineIcon className="sidebarIcon" />
               Manage
-            </li>
-            <li className="sidebarListItem">
+            </li> 
+            </Link>
+                       
+            {/* <Link to={"/analytics"} className="link">
+            <li className="sidebarListItem"> 
               <TimelineIcon className="sidebarIcon" />
               Analytics
             </li>
+            </Link>
+            <Link to={"/reports"} className="link">
             <li className="sidebarListItem">
               <ReportIcon className="sidebarIcon" />
               Reports
             </li>
+            </Link> */}
+            
           </ul>
         </div>
       </div>
     </div>
   );
 }
+
+
+  

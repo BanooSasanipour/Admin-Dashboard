@@ -1,8 +1,16 @@
 .userTabel {
     height: 70px;
-    width: 70%;
+    flex: 4;
     text-align: center;
-    margin-top: 75px;
+    margin-top: 50px;
+    margin-right: 10px;
+}
+
+.userWraper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 300px;
 }
 
 .userButton {
@@ -15,14 +23,26 @@
     font-size: 16px;
     border-radius: 5px;
     cursor: pointer;
-    margin-top: 100px;
+    margin-top: 50px;
     margin-right: 30px;
 }
 
 .userPhoto {
-    width: 50px;
-    height: 50px;
+    width: 25px;
+    height: 25px;
     border-radius: 50%;
-    margin: 10px;
-    margin-top: 100px;
+    margin: 20px;
+}
+
+.btns {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding-top: 27px;
+}
+
+.btns:hover {
+    cursor: pointer;
 }

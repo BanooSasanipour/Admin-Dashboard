@@ -1,0 +1,98 @@
+.manage {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  /* max-width: 900px; */
+  flex: 4;
+  margin: auto;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.manage h2 {
+  font-size: 24px;
+  color: darkblue;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.manageTable {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fafafa;
+}
+
+.manageTable th,
+.manageTable td {
+  padding: 12px 16px;
+  border: 1px solid #ddd;
+  text-align: center;
+  font-size: 15px;
+}
+
+.manageTable th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+  color: #333;
+}
+
+.manageBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.editBtn,
+.deleteBtn {
+  padding: 6px 12px;
+  margin-right: 8px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.editBtn {
+  background-color: #3bb077;
+  color: white;
+}
+
+.editBtn:hover {
+  background-color: #1565c0;
+}
+
+.deleteBtn {
+  background-color: #c62828;
+  color: white;
+}
+
+.deleteBtn:hover {
+  background-color: #b71c1c;
+}
+
+/* Responsive */
+@media (max-width: 700px) {
+  .manage {
+    padding: 15px;
+  }
+
+  .manage h2 {
+    font-size: 20px;
+  }
+
+  .manageTable th,
+  .manageTable td {
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  .manageTable {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .editBtn,
+  .deleteBtn {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+}

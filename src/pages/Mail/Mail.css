@@ -1,32 +1,33 @@
 .mail {
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
   padding: 20px;
-  background-color: #fff;
   border-radius: 12px;
-  /* max-width: 800px; */
-  flex: 2;
-  margin: auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  flex: 4;
 }
 
 .mailTabs {
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);;
 }
 
 .mailTabs button {
-  padding: 10px 16px;
-  background-color: #969292;
-  border: none;
+  background-color: white;
+  border: 1px solid #1976d2;
+  color: #1976d2;
+  padding: 8px 16px;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s ease;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: 0.3s ease;
 }
 
 .mailTabs button.active {
-  background-color: darkblue;
+  background-color: #1976d2;
   color: white;
 }
 
@@ -37,45 +38,40 @@
 }
 
 .mailItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
   padding: 12px;
-  margin-bottom: 12px;
-  border: 1px solid #eee;
+  background-color: white;
   border-radius: 8px;
-  background-color: #fafafa;
+  margin-bottom: 10px;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.05);
 }
 
-.mailItem strong {
-  display: block;
+.mailIcon {
+  color: #1976d2;
+  font-size: 28px;
+  margin-top: 4px;
+}
+
+.mailContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.mailSubject {
   font-size: 16px;
-  color: #333;
-  margin-bottom: 6px;
+  font-weight: 600;
+  margin-bottom: 4px;
 }
 
-.mailFrom {
+.mailMeta {
   font-size: 14px;
-  color: #666;
+  color: #555;
 }
 
-/* 📱 Responsive */
-@media (max-width: 700px) {
-  .mail {
-    padding: 15px;
-  }
-
-  .mailTabs {
-    flex-direction: column;
-  }
-
-  .mailTabs button {
-    width: 100%;
-    font-size: 15px;
-  }
-
-  .mailItem strong {
-    font-size: 15px;
-  }
-
-  .mailFrom {
-    font-size: 13px;
-  }
+.mailDate {
+  font-size: 12px;
+  color: #999;
+  margin-top: 4px;
 }

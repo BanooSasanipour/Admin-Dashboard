@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
+import AssessmentIcon from '@mui/icons-material/Assessment';
 
 import "./Analytics.css";
 import { db } from "../../firebase";
@@ -19,7 +20,7 @@ export default function Analytics() {
 
   const monthOrder = [
     "January", "February", "March", "April", "May", "June",
-    "July", "Augost", "September", "October", "November", "December"
+    "July", "August", "September", "October", "November", "December"
   ];
 
   useEffect(() => {
@@ -27,17 +28,16 @@ export default function Analytics() {
       try {
         const querySnapshot = await getDocs(collection(db, "userStats"));
         const stats = [];
-
         querySnapshot.forEach((doc) => {
           stats.push({ id: doc.id, ...doc.data() });
         });
 
-        // مرتب‌سازی ماه‌ها
+        // Mounth Sorting
         const sortedStats = stats.sort(
           (a, b) => monthOrder.indexOf(a.month) - monthOrder.indexOf(b.month)
         );
 
-        // محاسبه درصد تغییرات
+        // Persent Change
         const withChange = sortedStats.map((item, index, arr) => {
           if (index === 0) return { ...item, change: null };
           const prev = arr[index - 1].users;
@@ -47,26 +47,41 @@ export default function Analytics() {
 
         setUserDatas(withChange);
       } catch (error) {
-        console.error("خطا در دریافت داده‌های userStats:", error);
+        console.error("Error fetching userStats:", error);
       }
     };
 
     fetchUserStats();
   }, []);
 
-  // فیلتر ماه
+  // Filtering
   const filteredData =
     filteredMonth === "All"
       ? userDatas
-      : userDatas.filter((item) =>
-          monthOrder.indexOf(item.month) >= monthOrder.indexOf(filteredMonth)
-        );
+      : userDatas.filter((item) => item.month === filteredMonth);
 
   return (
     <div className="analytics">
-      <h2>User Growth Analytics</h2>
+      <h2 className="analyticTitle"><AssessmentIcon style={{marginRight: "10px", width: "35px", height: "35px"}} />User Growth Analytics</h2>
 
-      {/* نمودار */}
+      {/* Mounth Filtering */}
+      <div className="monthFilter">
+        <label>Filter by month: </label>
+        <select
+          className="monthSelect"
+          value={filteredMonth}
+          onChange={(event) => setFilteredMonth(event.target.value)}
+        >
+          <option value="All">All</option>
+          {monthOrder.map((month) => (
+            <option key={month} value={month}>
+              {month}
+            </option>
+          ))}
+        </select>
+      </div>
+
+      {/* Chart */}
       <div className="chartWrapper">
         <ResponsiveContainer width="100%" height={300}>
           <LineChart data={filteredData}>
@@ -90,24 +105,7 @@ export default function Analytics() {
         </ResponsiveContainer>
       </div>
 
-        {/* فیلتر ماه */}
-      <div className="monthFilter">
-        <label>Filter from month: </label>
-        <select
-        className="mounthSelect"
-          value={filteredMonth}
-          onChange={(event) => setFilteredMonth(event.target.value)}
-        >
-          <option value="All">All</option>
-          {monthOrder.map((month) => (
-            <option key={month} value={month}>
-              {month}
-            </option>
-          ))}
-        </select>
-      </div>
-
-      {/* جدول */}
+      {/* Table */}
       <table className="analyticsTable">
         <thead>
           <tr>
@@ -121,13 +119,16 @@ export default function Analytics() {
             <tr key={item.id || index}>
               <td>{item.month}</td>
               <td>{item.users}</td>
-              <td>
-                {item.change !== null ? `${item.change}%` : "—"}
-              </td>
+              <td>{item.change !== null ? `${item.change}%` : "—"}</td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      {/* Export PDF */}
+      <div className="downloadBtnWrapper">
+        <p>You can download the PDF report above 👆</p>
+      </div>
     </div>
   );
 }

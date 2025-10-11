@@ -1,137 +1,22 @@
-/* /* .newUserWraper {
-    flex : 4;
-
-}
-
-.newUserData {
-    margin: 50px;
-    padding: 10px;
-    margin-left: 80px;
-    
-}
-
-.newUser {
-    list-style-type: none;
-    
-}
-
-.newUserInput {
-    margin: 25px 0;
-    padding: 10px;
-    width: 300px;
-}
-
-.newUserBTNs {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 70px;
-    margin-top: 50px;
-}
-
-.newUserBTN {
-    width: 170px;
-    height: 50px;
-    font-size: 20px;
-    color: #fff;
-    background-color: teal;
-    border: none;
-    border-radius: 5px;
-    transition: all 20ms ease-in;
-    cursor: pointer;
-}
-
-.newUserBTN:hover {
-    background-color: rgb(1, 151, 151);
-} */
-
 .newUserWraper {
-  min-width: 600px;
+  /* max-width: 600px; */
+  flex: 4;
   margin: 40px auto;
   padding: 20px;
-  background-color: #fdfdfd;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
   border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.newUser {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.newUser li {
+.newUserTitle {
   display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-}
-
-.newUserData {
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: #333;
-  font-size: 15px;
-}
-
-.newUserInput {
-  font-size: 14px;
-  background-color: #fff;
-  border-radius: 6px;
-  padding: 10px;
-  border: 1px solid #ccc;
-}
-
-.newUserBTNs {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  margin-top: 30px;
-}
-
-.newUserBTN {
-  flex: 1;
-  padding: 12px 16px;
-  background-color: darkblue;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-size: 15px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.newUserBTN:hover {
-  background-color: #1565c0;
-}
-
-/* 📱 ریسپانسیو برای موبایل */
-@media (max-width: 768px) {
-  .newUserWraper {
-    padding: 15px;
-  }
-
-  .newUser li {
-    margin-bottom: 16px;
-  }
-
-  .newUserBTN {
-    font-size: 14px;
-    padding: 10px;
-  }
-} */
-
-.newUserWraper {
-  max-width: 600px;
-  margin: 40px auto;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+  align-items: center;
+  justify-content: center;
 }
 
 .newUserWraper h2 {
   font-size: 22px;
-  color: #1976d2;
+  color: #333;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -157,15 +42,16 @@
 
 .newUserForm button {
   padding: 12px;
-  background-color: #1976d2;
+  background-color: darkblue;
   color: white;
   border: none;
   border-radius: 6px;
   cursor: pointer;
+  transition: all 100ms linear;
 }
 
 .newUserForm button:hover {
-  background-color: #1565c0;
+  background-color: #0f4a8d;
 }
 
 @media (max-width: 700px) {

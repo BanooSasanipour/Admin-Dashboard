@@ -1,98 +1,62 @@
 .manage {
   padding: 20px;
-  background-color: #fff;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
   border-radius: 12px;
-  /* max-width: 900px; */
   flex: 4;
-  margin: auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.manageIcon {
+  margin-right: 5px;
 }
 
 .manage h2 {
-  font-size: 24px;
-  color: darkblue;
   margin-bottom: 20px;
-  text-align: center;
+  color: #333;
 }
 
 .manageTable {
   width: 100%;
   border-collapse: collapse;
-  background-color: #fafafa;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.actionCol {
+  width: 50px;
 }
 
 .manageTable th,
 .manageTable td {
   padding: 12px 16px;
-  border: 1px solid #ddd;
   text-align: center;
-  font-size: 15px;
+  border-bottom: 1px solid #eee;
 }
 
 .manageTable th {
   background-color: #f0f0f0;
-  font-weight: bold;
-  color: #333;
+  font-weight: 600;
 }
 
 .manageBtn {
   display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+  gap: 10px;
 }
 
 .editBtn,
 .deleteBtn {
-  padding: 6px 12px;
-  margin-right: 8px;
+  background-color: transparent;
   border: none;
-  border-radius: 6px;
   cursor: pointer;
-  font-size: 13px;
-}
-
-.editBtn {
-  background-color: #3bb077;
-  color: white;
+  color: #1976d2;
+  transition: 0.3s ease;
 }
 
 .editBtn:hover {
-  background-color: #1565c0;
-}
-
-.deleteBtn {
-  background-color: #c62828;
-  color: white;
+  color: #388e3c;
 }
 
 .deleteBtn:hover {
-  background-color: #b71c1c;
-}
-
-/* Responsive */
-@media (max-width: 700px) {
-  .manage {
-    padding: 15px;
-  }
-
-  .manage h2 {
-    font-size: 20px;
-  }
-
-  .manageTable th,
-  .manageTable td {
-    font-size: 13px;
-    padding: 10px;
-  }
-
-  .manageTable {
-    display: block;
-    overflow-x: auto;
-  }
-
-  .editBtn,
-  .deleteBtn {
-    font-size: 12px;
-    padding: 5px 10px;
-  }
+  color: #d32f2f;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   BarChart,
   Bar,
@@ -8,18 +8,47 @@ import {
   CartesianGrid,
   ResponsiveContainer,
 } from "recharts";
+import ReceiptIcon from '@mui/icons-material/Receipt';
 
+import { db } from "../../firebase";
+import { collection, getDocs } from "firebase/firestore";
 import "./Sales.css";
-import { salesDatas } from "../../datas";
 
 export default function Sales() {
+  const [salesDatas, setSalesDatas] = useState([]);
 
-  const [ salesData, setSalesData ] = useState(salesDatas);
+  useEffect(() => {
+    const fetchSalesData = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "salesDatas"));
+        const data = [];
+        querySnapshot.forEach((doc) => {
+          data.push({ id: doc.id, ...doc.data() });
+        });
+
+        const monthOrder = [
+          "Jan", "Feb", "Mar", "Apr", "May", "Jun",
+          "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"
+        ];
+
+        const sorted = data.sort(
+          (a, b) => monthOrder.indexOf(a.month) - monthOrder.indexOf(b.month)
+        );
+
+        setSalesDatas(sorted);
+      } catch (error) {
+        console.error("Error fetching sales data:", error);
+      }
+    };
+
+    fetchSalesData();
+  }, []);
+
   return (
     <div className="sales">
-      <h2>Sales Overview</h2>
+      <h2 className="salesTitle"><ReceiptIcon style={{marginRight: "10px"}} />Sales Overview</h2>
 
-      {/*  Sales Table */}
+      {/* Sales Table */}
       <table className="salesTable">
         <thead>
           <tr>
@@ -30,8 +59,8 @@ export default function Sales() {
           </tr>
         </thead>
         <tbody>
-          {salesData.map((item, index) => (
-            <tr key={index}>
+          {salesDatas.map((item, index) => (
+            <tr key={item.id || index}>
               <td>{index + 1}</td>
               <td>{item.month}</td>
               <td>{item.product}</td>
@@ -41,10 +70,10 @@ export default function Sales() {
         </tbody>
       </table>
 
-      {/*  Sales Chart */}
+      {/* Sales Chart */}
       <div className="chartWrapper">
         <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={salesData} barSize={23} barCategoryGap="25%">
+          <BarChart data={salesDatas} barSize={23} barCategoryGap="25%">
             <defs>
               <linearGradient id="colorSales" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="#42a5f5" stopOpacity={0.8} />
@@ -62,4 +91,3 @@ export default function Sales() {
     </div>
   );
 }
-

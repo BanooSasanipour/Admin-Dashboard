@@ -1,12 +1,40 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { db } from "../../firebase";
+import { collection, getDocs, deleteDoc, doc } from "firebase/firestore";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+
+
 import "./Manage.css";
-import { manageItems } from "../../datas";
 
 export default function Manage() {
-  const [items, setItems] = useState(manageItems);
+  const [items, setItems] = useState([]);
 
-  const handleDelete = (id) => {
-    setItems(items.filter((item) => item.id !== id));
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "manageItems"));
+        const data = [];
+        querySnapshot.forEach((docSnap) => {
+          data.push({ id: docSnap.id, ...docSnap.data() });
+        });
+        setItems(data);
+      } catch (error) {
+        console.error("Error fetching manage items:", error);
+      }
+    };
+
+    fetchItems();
+  }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await deleteDoc(doc(db, "manageItems", id));
+      setItems(items.filter((item) => item.id !== id));
+    } catch (error) {
+      console.error("Error deleting item:", error);
+    }
   };
 
   const handleEdit = (id) => {
@@ -15,13 +43,13 @@ export default function Manage() {
 
   return (
     <div className="manage">
-      <h2>Manage Users</h2>
+      <h2><ManageAccountsIcon className="manageIcon" />Manage Users</h2>
       <table className="manageTable">
         <thead>
           <tr>
             <th>Name</th>
             <th>Role</th>
-            <th>Actions</th>
+            <th className="actionCol">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -30,8 +58,12 @@ export default function Manage() {
               <td>{item.name}</td>
               <td>{item.role}</td>
               <td className="manageBtn">
-                <button onClick={() => handleEdit(item.id)} className="editBtn">Edit</button>
-                <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium userListDelete css-i4bv87-MuiSvgIcon-root" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="DeleteOutlineIcon"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5-1-1h-5l-1 1H5v2h14V4z"></path></svg>
+                <button onClick={() => handleEdit(item.id)} className="editBtn">
+                  <EditIcon style={{color : "green"}} />
+                </button>
+                <button onClick={() => handleDelete(item.id)} className="deleteBtn">
+                  <DeleteOutlineIcon style={{color : "red"}}/>
+                </button>
               </td>
             </tr>
           ))}

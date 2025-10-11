@@ -1,23 +1,47 @@
-import React, { useState } from "react";
-import SearchIcon from '@mui/icons-material/Search';
-import StarIcon from '@mui/icons-material/Star';
-import MarkAsUnreadIcon from '@mui/icons-material/MarkAsUnread';
-import CreateIcon from '@mui/icons-material/Create';
+import React, { useEffect, useState } from "react";
+import { db } from "../../firebase";
+import {
+  collection,
+  getDocs,
+  deleteDoc,
+  doc,
+  updateDoc,
+} from "firebase/firestore";
 
+import SearchIcon from "@mui/icons-material/Search";
+import StarIcon from "@mui/icons-material/Star";
+import MarkAsUnreadIcon from "@mui/icons-material/MarkAsUnread";
+import CreateIcon from "@mui/icons-material/Create";
+import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
+import MessageIcon from '@mui/icons-material/Message';
 
 import "./Messages.css";
-import { initialMessages } from "../../datas"
-
-
 
 export default function Messages() {
-  const [messages, setMessages] = useState(initialMessages);
+  const [messages, setMessages] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedIds, setSelectedIds] = useState([]);
 
+  useEffect(() => {
+    const fetchMessages = async () => {
+      try {
+        const querySnapshot = await getDocs(collection(db, "initialMessages"));
+        const data = [];
+        querySnapshot.forEach((docSnap) => {
+          data.push({ id: docSnap.id, ...docSnap.data() });
+        });
+        setMessages(data);
+      } catch (error) {
+        console.error("Error fetching messages:", error);
+      }
+    };
+
+    fetchMessages();
+  }, []);
+
   const toggleSelect = (id) => {
     setSelectedIds((prev) =>
-      prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
     );
   };
 
@@ -29,80 +53,109 @@ export default function Messages() {
     }
   };
 
-  const toggleStar = (id) => {
-    setMessages((prev) =>
-      prev.map((msg) =>
-        msg.id === id ? { ...msg, starred: !msg.starred } : msg
-      )
-    );
+  const toggleStar = async (id, current) => {
+    try {
+      await updateDoc(doc(db, "initialMessages", id), { starred: !current });
+      setMessages((prev) =>
+        prev.map((msg) =>
+          msg.id === id ? { ...msg, starred: !current } : msg
+        )
+      );
+    } catch (error) {
+      console.error("Error toggling star:", error);
+    }
   };
 
-  const handleDelete = (id) => {
-    setMessages(messages.filter((msg) => msg.id !== id));
+  const handleDelete = async (id) => {
+    try {
+      await deleteDoc(doc(db, "initialMessages", id));
+      setMessages((prev) => prev.filter((msg) => msg.id !== id));
+    } catch (error) {
+      console.error("Error deleting message:", error);
+    }
   };
 
-
-
-  const handleBulkDelete = () => {
-    setMessages(messages.filter((msg) => !selectedIds.includes(msg.id)));
-    setSelectedIds([]);
+  const handleBulkDelete = async () => {
+    try {
+      await Promise.all(
+        selectedIds.map((id) => deleteDoc(doc(db, "initialMessages", id)))
+      );
+      setMessages((prev) => prev.filter((msg) => !selectedIds.includes(msg.id)));
+      setSelectedIds([]);
+    } catch (error) {
+      console.error("Error bulk deleting messages:", error);
+    }
   };
 
-  const handleMarkUnread = () => {
-    setMessages((prev) =>
-      prev.map((msg) =>
-        selectedIds.includes(msg.id) ? { ...msg, read: false } : msg
-      )
-    );
-    setSelectedIds([]);
+  const handleMarkUnread = async () => {
+    try {
+      await Promise.all(
+        selectedIds.map((id) =>
+          updateDoc(doc(db, "initialMessages", id), { read: false })
+        )
+      );
+      setMessages((prev) =>
+        prev.map((msg) =>
+          selectedIds.includes(msg.id) ? { ...msg, read: false } : msg
+        )
+      );
+      setSelectedIds([]);
+    } catch (error) {
+      console.error("Error marking unread:", error);
+    }
   };
 
   const filteredMessages = messages.filter(
     (msg) =>
-      msg.sender.toLowerCase().includes(search.toLowerCase()) ||
-      msg.subject.toLowerCase().includes(search.toLowerCase())
+      msg.sender?.toLowerCase().includes(search.toLowerCase()) ||
+      msg.subject?.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
     <div className="messages">
       <div className="messagesHeader">
-        <h2>Inbox</h2>
+        <h2 className="messagesTitle"><MessageIcon style={{marginRight: "10px"}} />Inbox</h2>
         <div className="searchbox">
           <SearchIcon />
           <input
-          className="messagesInput"
-          type="text"
-          placeholder="Search by sender or subject..."
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
-
+            className="messagesInput"
+            type="text"
+            placeholder="Search by sender or subject..."
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
         </div>
-        
+
         <div className="actionButtons">
-          <button className="composeBTN"> <CreateIcon /> <span className="composeBTNText">Compose</span></button>
+          <button className="composeBTN">
+            <CreateIcon /> <span className="composeBTNText">Compose</span>
+          </button>
           <div className="actionBTNs">
             <button onClick={handleBulkDelete}>Delete</button>
             <button>Archive</button>
             <button onClick={handleMarkUnread}>Mark as Unread</button>
             <button onClick={selectAll}>
-            {selectedIds.length === messages.length ? "Unselect All" : "Select All"}
+              {selectedIds.length === messages.length
+                ? "Unselect All"
+                : "Select All"}
             </button>
           </div>
-          
         </div>
       </div>
 
       <ul className="messageList">
         {filteredMessages.map((msg) => {
           const initials = msg.sender
-            .split(" ")
+            ?.split(" ")
             .map((n) => n[0])
             .join("")
             .toUpperCase();
 
           return (
-            <li key={msg.id} className={`messageItem ${msg.read ? "read" : "unread"}`}>
+            <li
+              key={msg.id}
+              className={`messageItem ${msg.read ? "read" : "unread"}`}
+            >
               <input
                 type="checkbox"
                 checked={selectedIds.includes(msg.id)}
@@ -128,15 +181,18 @@ export default function Messages() {
               </div>
 
               <div className="messageActions">
-                <button onClick={() => toggleStar(msg.id)} className="starBtn">
-                  {msg.starred ? <StarIcon style={{ color: 'yellow' }} />
-                  : <StarIcon style={{ color: 'gray' }} />}
+                <button
+                  onClick={() => toggleStar(msg.id, msg.starred)}
+                  className="starBtn"
+                >
+                  <StarIcon style={{ color: msg.starred ? "gold" : "gray" }} />
                 </button>
                 <button className="Btn" onClick={() => handleDelete(msg.id)}>
-                  <svg class="MuiSvgIcon-root MuiSvgIcon-fontSizeMedium userListDelete css-i4bv87-MuiSvgIcon-root" focusable="false" aria-hidden="true" viewBox="0 0 24 24" data-testid="DeleteOutlineIcon"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM8 9h8v10H8V9zm7.5-5-1-1h-5l-1 1H5v2h14V4z"></path></svg>
+                  <DeleteOutlineIcon style={{color : "red"}} />
                 </button>
-                <button className="Btn" onClick={() => handleMarkUnread(msg.id)}><MarkAsUnreadIcon style={{ color: 'green' }} /></button>
-
+                <button className="Btn" onClick={() => handleMarkUnread(msg.id)}>
+                  <MarkAsUnreadIcon style={{ color: "green" }} />
+                </button>
               </div>
             </li>
           );

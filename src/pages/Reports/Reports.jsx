@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-
+import React, { useEffect, useState } from "react";
 import {
   PieChart,
   Pie,
@@ -8,27 +7,52 @@ import {
   ResponsiveContainer,
   Legend,
 } from "recharts";
+import SummarizeIcon from '@mui/icons-material/Summarize';
 
-import "./Reports.css"
-import { chartDatas, reportColors, reportDatas } from "../../datas";
-
-
+import { db } from "../../firebase";
+import { collection, getDocs } from "firebase/firestore";
+import "./Reports.css";
 
 export default function Report() {
+  const [reportData, setReportData] = useState([]);
+  const [chartData, setChartData] = useState([]);
+  const [COLORS, setColors] = useState([]);
 
-  const [ reportData, setReportData ] = useState(reportDatas);
-  const [ chartData, setChartData ] = useState(chartDatas);
-  const [ COLORS, setColors ] = useState( reportColors);
+  useEffect(() => {
+    const fetchReportData = async () => {
+      try {
+        const reportSnap = await getDocs(collection(db, "reportDatas"));
+        const chartSnap = await getDocs(collection(db, "chartDatas"));
+        const colorSnap = await getDocs(collection(db, "reportColors"));
+
+        const reports = [];
+        reportSnap.forEach((doc) => reports.push({ id: doc.id, ...doc.data() }));
+        setReportData(reports);
+
+        const charts = [];
+        chartSnap.forEach((doc) => charts.push(doc.data()));
+        setChartData(charts);
+
+        const colors = [];
+        colorSnap.forEach((doc) => colors.push(doc.data().color));
+        setColors(colors);
+      } catch (error) {
+        console.error("Error fetching report data:", error);
+      }
+    };
+
+    fetchReportData();
+  }, []);
+
   const handleDownload = () => {
     alert("Report downloaded successfully!");
-   
   };
 
   return (
     <div className="report">
-      <h2>Project Status Report</h2>
+      <h2 className="reportTitle"><SummarizeIcon style={{marginRight: "10px"}}/>Project Status Report</h2>
 
-      {/*  Table */}
+      {/* Table */}
       <table className="reportTable">
         <thead>
           <tr>
@@ -44,17 +68,19 @@ export default function Report() {
               <td>{index + 1}</td>
               <td>{item.name}</td>
               <td>
-                <span className={`status ${item.status.replace(" ", "").toLowerCase()}`}>
+                <span
+                  className={`status ${item.status.replace(" ", "").toLowerCase()}`}
+                >
                   {item.status}
                 </span>
               </td>
-              <td>{item.budget}</td>
+              <td>${item.budget}</td>
             </tr>
           ))}
         </tbody>
       </table>
 
-      {/*  Chart */}
+      {/* Chart */}
       <div className="chartWrapper">
         <ResponsiveContainer width="100%" height={300}>
           <PieChart>
@@ -68,7 +94,7 @@ export default function Report() {
               label
             >
               {chartData.map((entry, index) => (
-                <Cell key={`cell-${index}`} fill={COLORS[index]} />
+                <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
               ))}
             </Pie>
             <Tooltip />
@@ -77,7 +103,7 @@ export default function Report() {
         </ResponsiveContainer>
       </div>
 
-      {/*  Download Button */}
+      {/* Download Button */}
       <div className="downloadBtnWrapper">
         <button onClick={handleDownload}>Download Report</button>
       </div>

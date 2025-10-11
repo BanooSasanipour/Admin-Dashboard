@@ -1,11 +1,11 @@
 .messages {
   padding: 20px;
-  background-color: #fff;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
   border-radius: 12px;
   /* max-width: 900px; */
   flex: 4;
   margin: auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
 }
 
 .messagesHeader {
@@ -13,6 +13,11 @@
   flex-direction: column;
   gap: 10px;
   margin-bottom: 20px;
+}
+
+.messagesTitle {
+  display: flex;
+  align-items: center;
 }
 
 .searchbox {
@@ -30,7 +35,7 @@
 
 .messagesHeader h2 {
   font-size: 24px;
-  color: darkblue;
+  color: #333;
   margin: 0;
 }
 

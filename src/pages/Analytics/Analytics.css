@@ -1,16 +1,22 @@
 .analytics {
   padding: 20px;
-  background-color: #fff;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
   border-radius: 12px;
   /* max-width: 900px; */
   flex: 4;
   margin: auto;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.analyticTitle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .analytics h2 {
   font-size: 24px;
-  color: darkblue;
+  color: #333;
   margin-bottom: 20px;
   text-align: center;
 }
@@ -26,10 +32,10 @@
   margin-bottom: 20px;
   font-weight: 600;
 }
-.mounthSelect {
-  width: 150px;
+.monthSelect {
+  width: 200px;
   height: 30px;
-  margin-left: 10px;
+  margin-left: 15px;
 }
 .analyticsTable {
   width: 100%;

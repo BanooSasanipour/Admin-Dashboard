@@ -117,19 +117,6 @@ export default function Sidebar() {
               Manage
             </li> 
             </Link>
-                       
-            {/* <Link to={"/analytics"} className="link">
-            <li className="sidebarListItem"> 
-              <TimelineIcon className="sidebarIcon" />
-              Analytics
-            </li>
-            </Link>
-            <Link to={"/reports"} className="link">
-            <li className="sidebarListItem">
-              <ReportIcon className="sidebarIcon" />
-              Reports
-            </li>
-            </Link> */}
             
           </ul>
         </div>

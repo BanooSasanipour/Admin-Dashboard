@@ -28,7 +28,8 @@ export default function UserLIst() {
         return (
           <Link to={`/user/${userDatas.id}`} className="link">
             <div className='userListUser'>
-              <img src={params.row.avatar} alt='img' className="userListImg" />
+              {/* <img src={params.row.avatar} alt='img' className="userListImg" /> */}
+              <img src={`${process.env.PUBLIC_URL}/${params.row.avatar}`} alt='img' className="userListImg" />
               {params.row.username}
             </div>
           </Link>

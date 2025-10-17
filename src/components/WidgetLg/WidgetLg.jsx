@@ -65,11 +65,19 @@ export default function WidgetLg() {
           {currentTransactions.map((transaction) => (
             <tr key={transaction.id} className="WidgetLgTr">
               <td className="WidgetLgUser">
-                <img
+                {/* <img
                   src={transaction.img}
                   alt={transaction.customer}
                   className="WidgetLgImg"
+                /> */}
+                <img
+                  src={`${process.env.PUBLIC_URL}/${transaction.img}`}
+                  alt={transaction.customer}
+                  className="widgetLgImg"
                 />
+
+
+
                 <span className="WidgetLgName">{transaction.customer}</span>
               </td>
               <td className="WidgetLgDate">{transaction.date}</td>

@@ -165,7 +165,8 @@ export default function Messages() {
 
               <div className="avatar">
                 {msg.avatar ? (
-                  <img src={msg.avatar} alt="avatar" />
+                  // <img src={msg.avatar} alt="avatar" />
+                  <img src={`${process.env.PUBLIC_URL}/${msg.avatar}`} alt="avatar" />
                 ) : (
                   <span className="initials">{initials}</span>
                 )}

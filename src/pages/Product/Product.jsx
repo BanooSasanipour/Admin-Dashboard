@@ -81,7 +81,14 @@ export default function Product() {
             <div className='productFormRight'>
 
               <div className='productUploader'>
-                <img src="/images/dell.jpg" alt="profile photo" className='productUploaderImg' />
+                {/* <img src="/images/dell.jpg" alt="profile photo" className='productUploaderImg' /> */}
+                <img
+                  src={`${process.env.PUBLIC_URL}/images/dell.jpg`}
+                  alt="profile photo"
+                   className="productUploaderImg"
+                />
+
+
                 <label>
                   <PublishIcon />
                 </label>

@@ -116,7 +116,7 @@ let userRows = [
     {
         id: 1,
         username: 'Ryan Bakh',
-        avatar: '/images/qadir.jpg',
+        avatar: 'images/qadir.jpg',
         status: 'active',
         transaction: '$129.52',
         email: 'Ryan@gmail.com'
@@ -124,7 +124,7 @@ let userRows = [
     {
         id: 2,
         username: 'Jack Jackson',
-        avatar: '/images/amin.jpg',
+        avatar: 'images/amin.jpg',
         status: 'non-active',
         transaction: '$110',
         email: 'Jack@gmail.com'
@@ -132,7 +132,7 @@ let userRows = [
     {
         id: 3,
         username: 'Alex Alexer',
-        avatar: '/images/sasan.jpg',
+        avatar: 'images/sasan.jpg',
         status: 'active',
         transaction: '$98',
         email: 'Alex@gmail.com'
@@ -140,7 +140,7 @@ let userRows = [
     {
         id: 4,
         username: 'Susan Adam',
-        avatar: '/images/zahra.jpg',
+        avatar: 'images/zahra.jpg',
         status: 'active',
         transaction: '$0',
         email: 'susan@gmail.com'
@@ -148,7 +148,7 @@ let userRows = [
     {
         id: 5,
         username: 'Peter Muller',
-        avatar: '/images/hamze.jpg',
+        avatar: 'images/hamze.jpg',
         status: 'active',
         transaction: '$55.98',
         email: 'peter@gmail.com'

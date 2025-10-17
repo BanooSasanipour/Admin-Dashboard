@@ -21,7 +21,8 @@ export default function User() {
 
         <>
         <div className="userWraper">
-               <img src={user.avatar} alt="Avatar" className='userPhoto'/>
+               {/* <img src={user.avatar} alt="Avatar" className='userPhoto'/> */}
+               <img src={`${process.env.PUBLIC_URL}/${user.avatar}`} alt="Avatar" className='userPhoto'/>
             <Table striped bordered hover className='userTabel'>
                 <thead>
                     <tr>

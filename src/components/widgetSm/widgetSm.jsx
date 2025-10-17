@@ -30,7 +30,14 @@ export default function WidgetSm() {
       <ul className="widgetSmList">
         {newMembers.map((user) => (
           <li key={user.id} className="widgetSmListItem">
-            <img src={user.img} alt={user.username} className="widgetSmImg" />
+            {/* <img src={user.img} alt={user.username} className="widgetSmImg" /> */}
+            <img
+              src={`${process.env.PUBLIC_URL}/${user.img}`}
+              alt={user.username}
+              className="widgetSmImg"
+            />
+
+
             <div className="widgetSmUser">
               <span className="widgetSmUserName">{user.username}</span>
               <span className="widgetSmUserTitle">{user.title}</span>
